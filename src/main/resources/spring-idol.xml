@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <context:annotation-config />
+    <context:component-scan base-package="com.spinginaction.springidol" >
+        <context:include-filter type="assignable" expression="com.spinginaction.springidol.Instrument"/>
+    </context:component-scan>
+
+    <bean id="duke" class="com.spinginaction.springidol.performers.PoeticJuggler" autowire="constructor" />
+    <bean id="poem" class="com.spinginaction.springidol.Sonnet29"/>
+
+    <bean id="theStage" class="com.spinginaction.springidol.Stage" factory-method="getInstance" />
+
+    <bean id="kenny" class="com.spinginaction.springidol.performers.Instrumentalist"
+        p:song = "Jingle Bells" />
+<!--        p:instrument-ref = "saxophone" />-->
+
+    <bean id="carl" class="com.spinginaction.springidol.performers.Instrumentalist">
+        <property name="song" value="#{kenny.song ?: 'Greensleeves'}" />
+<!--        <property name="instrument" ref="guitar" />-->
+    </bean>
+
+<!--    <bean id="saxophone" class="com.spinginaction.springidol.instruments.Saxophone" />-->
+<!--    <bean id="piano" class="com.spinginaction.springidol.instruments.Piano" />-->
+
+    <bean id="hank" class="com.spinginaction.springidol.performers.OneManBand">
+        <property name="instruments">
+            <map>
+                <entry key="GUITAR" value-ref="guitar" />
+                <entry key="CYMBAL" value-ref="cymbal" />
+                <entry key="HARMONICA" value-ref="harmonica" />
+            </map>
+        </property>
+    </bean>
+<!--    <bean id="guitar" class="com.spinginaction.springidol.instruments.Guitar" />-->
+<!--    <bean id="cymbal" class="com.spinginaction.springidol.instruments.Cymbal" />-->
+<!--    <bean id="harmonica" class="com.spinginaction.springidol.instruments.Harmonica" />-->
+
+<!--    <bean id="knife" class="com.spinginaction.springidol.Knife" scope="prototype" />-->
+<!--    <bean id="knifeJuggler" class="com.spinginaction.springidol.performers.KnifeJuggler" />-->
+
+</beans>
